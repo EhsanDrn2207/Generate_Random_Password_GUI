@@ -2,7 +2,13 @@ import tkinter as tk
 
 window = tk.Tk()
 
-
+defual_setting_dict = {
+    "UpperCase" : True,
+    "LowerCase" : False,
+    "Number" : True,
+    "Symbol" : True,
+    "Space" : False
+}
 
 label_featurs_list = [
     {
@@ -56,7 +62,7 @@ yes_btn_list = []
 for i in range(5):  
     yes_btn = tk.Button(
         master = window,
-        text= 'yes',
+        text= f'yes {i}',
         width= 8,
         height= 1,
         command= quit,
@@ -74,7 +80,7 @@ no_btn_list = []
 for i in range(5):  
     no_btn = tk.Button(
         master = window,
-        text= 'no',
+        text= f'no {i}',
         width= 8,
         height= 1,
         command= quit,
