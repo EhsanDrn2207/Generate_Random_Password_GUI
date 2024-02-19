@@ -93,6 +93,7 @@ for yes_btn in yes_button_commands:
         text= 'yes',
         width= 8,
         height= 1,
+        fg="green",
         command= yes_btn["command"],
     )
     yes_btn_list.append(yes_btn)
@@ -133,6 +134,7 @@ for no_btn in no_button_commands:
         text= 'no',
         width= 8,
         height= 1,
+        fg='green',
         command= no_btn['command'],
     )
     no_btn_list.append(no_btn)
@@ -162,7 +164,7 @@ default_label_featurs = [
     },
     
     {
-        "text": "Default --> Yes",
+        "text": "Default --> No",
     },
         
     {
@@ -174,7 +176,7 @@ default_label_featurs = [
     },
         
     {
-        "text": "Default --> Yes",
+        "text": "Default --> No",
     },
             
     {
@@ -200,7 +202,7 @@ for label_objs in default_label_list:
     label_objs.grid(row=row_num, column=30, columnspan=10,)
     row_num += 1
     
-def generate_random_password_gui():
+def generate_random_password_gui(event = "<Return>"):
     on_options = []
     for option in defual_setting_dict:
         if defual_setting_dict[option] == True:
@@ -217,17 +219,22 @@ run_btn = tk.Button(
     width=4,
     height=1,
     text="Run",
+    fg="blue",
     command=generate_random_password_gui,
 )
 run_btn.grid(row=row_num, column=27, columnspan=10)
 
-reset = tk.Button(
+quit_btn = tk.Button(
     master=window,
     width=4,
     height=1,
-    text="Reset",
+    text="Quit",
+    fg= 'red',
     command=quit,
 )
-reset.grid(row=row_num, column=32, columnspan=10)
+quit_btn.grid(row=row_num, column=32, columnspan=10)
+
+window.bind("<Return>", generate_random_password_gui)
+window.bind("<q>", quit)
 
 window.mainloop()
