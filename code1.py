@@ -4,6 +4,8 @@ from generate_password import *
 
 window = tk.Tk()
 
+window.title("Password Generation")
+
 defual_setting_dict = {
     "UpperCase" : True,
     "LowerCase" : False,
@@ -204,7 +206,10 @@ def generate_random_password_gui():
         if defual_setting_dict[option] == True:
             on_options.append(option)
     length = length_ent.get()
-    result = generate_random_password(on_options, int(length))
+    try:
+        result = generate_random_password(on_options, int(length))
+    except ValueError:
+        result = generate_random_password(on_options, 8)
     random_password_lbl['text'] = result
     
 run_btn = tk.Button(
