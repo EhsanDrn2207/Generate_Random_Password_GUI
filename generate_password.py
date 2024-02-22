@@ -25,8 +25,11 @@ def generate_random_password(true_options : list, length : int = 8):
     
     len_password = length
     for password in range(len_password):
-        random_choice = random.choice(true_options)
-        
+        try:
+            random_choice = random.choice(true_options)
+        except IndexError:
+            return ""
+            
         if random_choice == "LowerCase":
             password = add_lowercase()
             my_password += password

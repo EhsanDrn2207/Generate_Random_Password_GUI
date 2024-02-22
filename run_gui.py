@@ -1,6 +1,7 @@
 import tkinter as tk
 
 from generate_password import *
+from errors import LengthLimitError
 
 window = tk.Tk()
 
@@ -153,34 +154,34 @@ length_ent.grid(row=row_num, column=5, columnspan=20)
 
 random_password_lbl = tk.Label(
     master=window,
-    text = 'answer',
-    width= 15,
+    text = 'result',
+    width= 20,
 )
 
 random_password_lbl.grid(row= row_num+1, column=5, columnspan=20)
 default_label_featurs = [
     {
-        "text": "Default --> Yes",
+        "text": "Default ==> Yes",
     },
     
     {
-        "text": "Default --> No",
+        "text": "Default ==> No",
     },
         
     {
-        "text": "Default --> Yes",
+        "text": "Default ==> Yes",
     },
     
     {
-        "text": "Default --> Yes",
+        "text": "Default ==> Yes",
     },
         
     {
-        "text": "Default --> No",
+        "text": "Default ==> No",
     },
             
     {
-        "text": "Default --> 8",
+        "text": "Default ==> 8",
     },
             
 ]
@@ -207,11 +208,18 @@ def generate_random_password_gui(event = "<Return>"):
     for option in defual_setting_dict:
         if defual_setting_dict[option] == True:
             on_options.append(option)
-    length = length_ent.get()
     try:
+        length = length_ent.get()
+        if  int(length) > 20 or int(length) < 4:
+            raise LengthLimitError
         result = generate_random_password(on_options, int(length))
+        
     except ValueError:
         result = generate_random_password(on_options, 8)
+    
+    except LengthLimitError:
+        random_password_lbl['text'] = "length between 4 to 20."
+            
     random_password_lbl['text'] = result
     
 run_btn = tk.Button(
