@@ -18,27 +18,27 @@ defual_setting_dict = {
         
 label_featurs_list = [
     {
-        "text": "UpperCase: ",
+        "text": "UpperCase:",
     },
     
     {
-        "text": "LowerCase: ",
+        "text": "LowerCase:",
     },
      
     {
-        "text": "Number: ",
+        "text": "Number:",
     },
       
     {
-        "text": "Symbol: ",
+        "text": "Symbol:",
     },
        
     {
-        "text": "Space: ",
+        "text": "Space:",
     },
     
     {
-        "text": "Length: ",
+        "text": "Length:",
     },
     
     {
@@ -94,7 +94,7 @@ for yes_btn in yes_button_commands:
         text= 'yes',
         width= 8,
         height= 1,
-        fg="green",
+        fg="blue",
         command= yes_btn["command"],
     )
     yes_btn_list.append(yes_btn)
@@ -135,7 +135,7 @@ for no_btn in no_button_commands:
         text= 'no',
         width= 8,
         height= 1,
-        fg='green',
+        fg="blue",
         command= no_btn['command'],
     )
     no_btn_list.append(no_btn)
@@ -219,6 +219,15 @@ def generate_random_password_gui(event = "<Return>"):
     
     except LengthLimitError:
         random_password_lbl['text'] = "length between 4 to 20."
+    
+    for label in label_created_list:
+        if (label['text'][:-1])in on_options:
+            label['fg'] = 'green'
+        else:
+            if label['text'] == "Random_Password: ":
+                label['fg'] = 'black'
+            else:
+                label['fg'] = 'red'
             
     random_password_lbl['text'] = result
     
@@ -227,7 +236,7 @@ run_btn = tk.Button(
     width=4,
     height=1,
     text="Run",
-    fg="blue",
+    fg="#009ACD",
     command=generate_random_password_gui,
 )
 run_btn.grid(row=row_num, column=27, columnspan=10)
