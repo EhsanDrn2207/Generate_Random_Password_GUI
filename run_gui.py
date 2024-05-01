@@ -1,4 +1,6 @@
 import tkinter as tk
+import os
+import sys
 
 from generate_password import *
 from errors import LengthLimitError
@@ -42,7 +44,7 @@ label_featurs_list = [
     },
     
     {
-        "text": "Random_Password: ",
+        "text": "Random_Password:",
     }
 ]
 
@@ -224,12 +226,22 @@ def generate_random_password_gui(event = "<Return>"):
         if (label['text'][:-1])in on_options:
             label['fg'] = 'green'
         else:
-            if label['text'] == "Random_Password: ":
+            if label['text'] == "Random_Password:" or label['text'] == "Length:":
                 label['fg'] = 'black'
             else:
                 label['fg'] = 'red'
-            
-    random_password_lbl['text'] = result
+    
+    with open("passwords.txt", 'a') as file:
+        file.write(f"\n{result}\n")
+        file.write("\n--------------------------------------------\n")     
+        random_password_lbl['text'] = result
+    
+def restart_program(*args):
+    """Restarts the current program.
+    Note: this function does not return. Any cleanup action (like
+    saving data) must be done before calling this function."""
+    python = sys.executable
+    os.execl(python, python, * sys.argv)
     
 run_btn = tk.Button(
     master=window,
@@ -251,7 +263,21 @@ quit_btn = tk.Button(
 )
 quit_btn.grid(row=row_num, column=32, columnspan=10)
 
+
+    
+restart_btn = tk.Button(
+    master=window,
+    width=4,
+    height=1,
+    fg = "blue",
+    text = "reset",
+    command= restart_program
+)
+
+restart_btn.grid(row=row_num, column=37, columnspan=10)
+
 window.bind("<Return>", generate_random_password_gui)
 window.bind("<q>", quit)
+window.bind("<r>", restart_program)
 
 window.mainloop()
