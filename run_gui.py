@@ -155,13 +155,20 @@ length_ent = ttk.Entry(
 
 length_ent.grid(row=row_num, column=5, columnspan=20)
 
-random_password_lbl = tk.Label(
+random_password_txt = tk.Text(
     master=window,
-    text = 'result',
-    width= 20,
+    height=1,    # Set height to 1 line
+    width=20,    # Match the original width
+    bg=window.cget("bg"),  # Match the background color of the window (like a label)
+    borderwidth=0,         # Remove border to make it look like a label
+    highlightthickness=0,   # Remove the focus highlight
 )
 
-random_password_lbl.grid(row= row_num+1, column=5, columnspan=20)
+random_password_txt.grid(row= row_num+1, column=5, columnspan=20)
+
+# Set the Text widget to be read-only
+random_password_txt.config(state=tk.DISABLED)
+
 default_label_featurs = [
     {
         "text": "Default ==> Yes",
@@ -221,8 +228,13 @@ def generate_random_password_gui(event = "<Return>"):
         result = generate_random_password(on_options, 8)
     
     except LengthLimitError:
-        random_password_lbl['text'] = "length between 4 to 20."
-    
+        # Display error message in Text widget
+        random_password_txt.config(state=tk.NORMAL)  # Enable editing to update text
+        random_password_txt.delete(1.0, tk.END)      # Clear the Text widget
+        random_password_txt.insert(tk.END, "Length: 4 to 20")
+        random_password_txt.config(state=tk.DISABLED)  # Disable editing again
+        return
+
     for label in label_created_list:
         if (label['text'][:-1])in on_options:
             label['fg'] = 'green'
@@ -234,8 +246,22 @@ def generate_random_password_gui(event = "<Return>"):
     
     with open("passwords.txt", 'a') as file:
         file.write(f"\n{result}\n")
-        file.write("\n--------------------------------------------\n")     
-        random_password_lbl['text'] = result
+        file.write("\n--------------------------------------------\n")
+             
+    # Display the generated password in the Text widget
+    random_password_txt.config(state=tk.NORMAL)  # Enable editing to update text
+    random_password_txt.delete(1.0, tk.END)      # Clear the previous result
+    
+    # Calculate spaces needed to center the text
+    total_width = 20  # This is the width of the Text widget
+    result_length = len(result)
+    padding = (total_width - result_length) // 2
+    
+    # Create the centered result with padding spaces
+    centered_result = " " * padding + result
+
+    random_password_txt.insert(tk.END, centered_result)   # Insert the new password
+    random_password_txt.config(state=tk.DISABLED)  # Disable editing to make it read-only
     
 def restart_program(*args):
     """Restarts the current program using subprocess.
