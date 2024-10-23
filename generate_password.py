@@ -52,11 +52,4 @@ def generate_random_password(true_options : list, length : int = 8):
         else:
             pass
     return my_password
-
-
-
-            
-    
-
-
-        
+  
