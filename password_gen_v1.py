@@ -9,6 +9,7 @@ from errors import LengthLimitError
 window = tk.Tk()
 
 window.title("Password Generation")
+window.iconbitmap('image/lock.ico')
 
 defual_setting_dict = {
     "UpperCase" : True,

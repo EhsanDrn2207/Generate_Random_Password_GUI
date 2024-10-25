@@ -9,6 +9,7 @@ class PasswordGeneratorApp:
     def __init__(self):
         self.window = tk.Tk()
         self.style = ttk.Style()
+        self.window.iconbitmap('image/pattern.ico')
 
         self.window.resizable(False, False)
         self.window.title("Password Generation")
