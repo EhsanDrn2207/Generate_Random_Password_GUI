@@ -3,7 +3,7 @@ from tkinter import ttk
 import subprocess
 import sys
 
-from generate_password import *
+from generate_password_functions import *
 from errors import LengthLimitError
 
 window = tk.Tk()
@@ -248,11 +248,8 @@ def generate_random_password_gui(event = "<Return>"):
         file.write(f"\n{result}\n")
         file.write("\n--------------------------------------------\n")
              
-    # Display the generated password in the Text widget
     random_password_txt.config(state=tk.NORMAL)  # Enable editing to update text
     random_password_txt.delete(1.0, tk.END)      # Clear the previous result
-    
-    # Calculate spaces needed to center the text
     total_width = 20  # This is the width of the Text widget
     result_length = len(result)
     padding = (total_width - result_length) // 2
@@ -277,11 +274,9 @@ def restart_program(*args):
 # Create a style for the buttons
 style = ttk.Style()
 
-# Set the theme (use 'default' or another theme to allow background color)
 style.theme_use('default')
 
-# Configure styles for each button with foreground and background colors
-# 1. Run Button: Light blue text with light gray background
+
 style.configure(
     "Run.TButton",
     foreground="#009ACD",     # Light blue text
@@ -293,7 +288,6 @@ style.map(
     background=[('active', '#87CEEB')]  # Active state background (light blue)
 )
 
-# 2. Quit Button: Red text with light red background
 style.configure(
     "Quit.TButton",
     foreground="red",          # Red text
@@ -305,7 +299,6 @@ style.map(
     background=[('active', '#FF6666')]  # Active state background (darker red)
 )
 
-# 3. Reset Button: Blue text with light blue background
 style.configure(
     "Restart.TButton",
     foreground="blue",         # Blue text
@@ -317,7 +310,6 @@ style.map(
     background=[('active', '#66CCFF')]  # Active state background (darker blue)
 )
 
-# Run button with ttk and custom color styles
 run_btn = ttk.Button(
     master=window,
     width=4,
@@ -327,7 +319,6 @@ run_btn = ttk.Button(
 )
 run_btn.grid(row=row_num, column=27, columnspan=10)
 
-# Quit button with ttk and custom color styles
 quit_btn = ttk.Button(
     master=window,
     width=4,
@@ -337,7 +328,6 @@ quit_btn = ttk.Button(
 )
 quit_btn.grid(row=row_num, column=32, columnspan=10)
 
-# Reset (Restart) button with ttk and custom color styles
 restart_btn = ttk.Button(
     master=window,
     width=4,
